@@ -15,6 +15,30 @@
         - `scope` (has an 'Elm' property which contains the public Elm API)
         - various functions defined by Elm which we have to hook such as `_Platform_initialize` and `_Scheduler_binding`
  */
+var myDisposeCallback = null;
+
+if (!module.hot) {
+    module.hot = {
+        accept: function () {
+            console.log('accepted');
+        },
+
+        dispose: function (callback) {
+            myDisposeCallback = callback
+        },
+
+        data: null,
+
+        apply: function () {
+            var newData = {};
+            myDisposeCallback(newData);
+            module.hot.data = newData
+        },
+
+        verbose: true
+    };
+}
+
 
 if (module.hot) {
     (function () {
