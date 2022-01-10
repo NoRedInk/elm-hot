@@ -543,6 +543,7 @@ if (module.hot) {
             var publicModules = findPublicModules(Elm);
             publicModules.forEach(function (m) {
                 wrapPublicModule(m.path, m.module);
+                _elm_public_modules[m.path] = { module: module, scope: scope };
             });
         }
     })();
