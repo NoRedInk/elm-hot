@@ -543,7 +543,11 @@ if (module.hot) {
             var publicModules = findPublicModules(Elm);
             publicModules.forEach(function (m) {
                 wrapPublicModule(m.path, m.module);
-                _elm_public_modules[m.path] = { module: module, scope: scope };
+                if (typeof _elm_public_modules !== 'undefined') {
+                    _elm_public_modules[m.path] = { module: module, scope: scope };
+                } else {
+                    console.warn("[elm-hot] _elm_public_modules is not defined, module '" + m.path + "' will not hot reload.");
+                }
             });
         }
     })();
